@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Glamora</title>
+    <link href='https://fonts.googleapis.com/css?family=GFS Didot' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'GFS Didot', serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #aa95a7;
+        }
+
+        header {
+            background: rgba(240, 203, 230, 0.7); /* Semi-transparent background */
+            color: rgb(45, 40, 40);
+            padding: 10px 0; /* Reduced padding */
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links li {
+            margin: 0 10px; /* Reduced margin */
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px; /* Reduced font size */
+        }
+
+        .cart-icon {
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon img {
+            width: 25px; /* Reduced size */
+            height: 25px; /* Reduced size */
+        }
+
+        /* Rest of the CSS remains the same */
+        .sidebar {
+            width: 250px;
+            background-color: #110b11;
+            padding: 130px 20px 20px; /* Adjusted for smaller header */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #ded4db;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .categories button {
+            background: #ece5ee;
+            color: rgb(29, 23, 23);
+            border: none;
+            padding: 10px 20px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .categories button:hover {
+            background: #3a142f;
+        }
+
+        .categories button .arrow {
+            font-size: 12px;
+        }
+
+        .sub-categories {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .sub-categories button {
+            background: #f4f4f4;
+            color: #c547a3;
+            border: none;
+            padding: 8px 15px;
+            margin: 3px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .sub-categories button:hover {
+            background: #ddd;
+        }
+
+        .product-container {
+            margin-left: 270px; /* Adjusted for sidebar */
+            padding: 130px 20px 20px; /* Adjusted for smaller header */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .product button {
+            background: rgb(20, 1, 16);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        .product button.dreamcloset-btn {
+            background: #531c44;
+        }
+
+        .product button.dreamcloset-btn:hover {
+            background: #3a142f;
+        }
+
+        .product button:hover {
+            background: rgb(139, 39, 154);
+        }
+
+        .view-cart {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .view-cart a {
+            background-color: #b862a1;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .view-cart a:hover {
+            background-color: #3a142f;
+        }
+
+        /* Summer Sales Banner Styles */
+        #summer-sales-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #a55389, #803e7c); /* Gradient background */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000; /* Ensure it stays on top of other content */
+            animation: float 3s ease-in-out infinite; /* Floating animation */
+        }
+
+        #summer-sales-banner p {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #summer-sales-banner button {
+            background-color: white;
+            color: #c384c6;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        #summer-sales-banner button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="product_page.html">Products</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+            <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Cart">
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <h2>CATEGORIES</h2>
+        <div class="categories">
+            <button onclick="toggleSubCategories('women')">
+                Women's Clothing <span class="arrow">▼</span>
+            </button>
+            <div class="sub-categories" id="women-sub">
+                <button onclick="showCategory('kurtis')">Kurtis</button>
+                <button onclick="showCategory('bodycons')">Bodycons</button>
+                <button onclick="showCategory('skirts')">Skirts</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-container">
+        <!-- Kurtis -->
+        <div class="product" data-category="kurtis">
+            <img src="https://i.pinimg.com/474x/9b/a8/64/9ba8649e5fabfd14dce49d327fc60f3a.jpg" alt="Kurti 1">
+            <p>Orange Kurti - ₹1500</p>
+            <button onclick="addToCart(1, 'Orange Kurti', 1500, 'https://i.pinimg.com/474x/9b/a8/64/9ba8649e5fabfd14dce49d327fc60f3a.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="kurtis">
+            <img src="https://i.pinimg.com/474x/71/e7/a8/71e7a87c4772a54d804433811ae3484a.jpg" alt="Kurti 2">
+            <p>Kurti - ₹2500</p>
+            <button onclick="addToCart(2, 'Blue Kurti', 2500, 'https://i.pinimg.com/474x/71/e7/a8/71e7a87c4772a54d804433811ae3484a.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="kurtis">
+            <img src="https://i.pinimg.com/474x/0b/79/36/0b79364dcbac0b08be1bad781e50e114.jpg" alt="Kurti 3">
+            <p>Grand Kurti - ₹5000</p>
+            <button onclick="addToCart(3, 'Grand Kurti', 5000, 'https://i.pinimg.com/474x/0b/79/36/0b79364dcbac0b08be1bad781e50e114.jpg')">Add to Cart</button>
+        </div>
+
+        <!-- Bodycons -->
+        <div class="product" data-category="bodycons">
+            <img src="https://i.pinimg.com/474x/f4/79/10/f47910c5360565dab491b2a388497e5e.jpg" alt="Bodycon 1">
+            <p>Black Bodycon - ₹3000</p>
+            <button onclick="addToCart(4, 'Black Bodycon', 3000, 'https://i.pinimg.com/474x/f4/79/10/f47910c5360565dab491b2a388497e5e.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="bodycons">
+            <img src="https://i.pinimg.com/474x/24/f5/91/24f591931e6d59eb401055875ec41208.jpg" alt="Bodycon 2">
+            <p>Red Bodycon - ₹3500</p>
+            <button onclick="addToCart(5, 'Red Bodycon', 3500, 'https://i.pinimg.com/474x/24/f5/91/24f591931e6d59eb401055875ec41208.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="bodycons">
+            <img src="https://i.pinimg.com/474x/ef/cf/f5/efcff540effba3b95888f5f41194c034.jpg" alt="Bodycon 3">
+            <p>Floral Bodycon - ₹4000</p>
+            <button onclick="addToCart(6, 'Floral Bodycon', 4000, 'https://i.pinimg.com/474x/ef/cf/f5/efcff540effba3b95888f5f41194c034.jpg')">Add to Cart</button>
+        </div>
+
+        <!-- Skirts -->
+        <div class="product" data-category="skirts">
+            <img src="https://i.pinimg.com/474x/08/41/da/0841da5558ec9b84ceed41e5937f0569.jpg" alt="Skirt 1">
+            <p>White Skirt - ₹2500</p>
+            <button onclick="addToCart(7, 'White Skirt', 2500, 'https://i.pinimg.com/474x/08/41/da/0841da5558ec9b84ceed41e5937f0569.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="skirts">
+            <img src="https://i.pinimg.com/474x/3a/c0/23/3ac02363e5b6204fd11b4596c11be951.jpg" alt="Skirt 2">
+            <p>Black Skirt - ₹2800</p>
+            <button onclick="addToCart(8, 'Black Skirt', 2800, 'https://i.pinimg.com/474x/3a/c0/23/3ac02363e5b6204fd11b4596c11be951.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="skirts">
+            <img src="https://i.pinimg.com/474x/07/c6/1d/07c61deb732a3c8a8afdcbaf702b10be.jpg" alt="Skirt 3">
+            <p>Floral Skirt - ₹1800</p>
+            <button onclick="addToCart(9, 'Floral Skirt', 1800, 'https://i.pinimg.com/474x/07/c6/1d/07c61deb732a3c8a8afdcbaf702b10be.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-category="skirts">
+            <img src="https://i.pinimg.com/474x/96/e6/3a/96e63ae12189150a5d3a5408c6ef41ab.jpg" alt="Skirt 4">
+            <p>Pink Skirt - ₹2200</p>
+            <button onclick="addToCart(10, 'Pink Skirt', 2200, 'https://i.pinimg.com/474x/96/e6/3a/96e63ae12189150a5d3a5408c6ef41ab.jpg')">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="view-cart">
+        <a href="cart.html">View Cart</a>
+    </div>
+
+    <!-- Summer Sales Floating Banner -->
+    <div id="summer-sales-banner">
+        <p>🔥 Summer Sale! Up to 50% OFF! Ends in: <span id="countdown"></span> 🔥</p>
+        <button onclick="closeBanner()">Close</button>
+    </div>
+
+    <script>
+        // Replace the existing addToCart function with this one
+        async function addToCart(productId, productName, productPrice, productImage) {
+            try {
+                console.log('Adding to cart:', { productId, productName, productPrice, productImage }); // Debug log
+
+                const response = await fetch('http://127.0.0.1:5001/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Server response:', data); // Debug log
+
+                if (response.ok) {
+                    alert(`${productName} added to cart!`);
+                    await updateCartCount(); // Update the cart count display
+                } else {
+                    throw new Error(data.error || 'Failed to add product to cart');
+                }
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                alert('Failed to add product to cart: ' + error.message);
+            }
+        }
+
+        // Update cart count function
+        async function updateCartCount() {
+            try {
+                const response = await fetch('http://127.0.0.1:5001/cart-items');
+                const cart = await response.json();
+                console.log('Cart items:', cart); // Debug log
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById("cart-count").textContent = totalItems;
+            } catch (error) {
+                console.error('Error updating cart count:', error);
+            }
+        }
+
+        // Call updateCartCount when the page loads
+        document.addEventListener("DOMContentLoaded", updateCartCount);
+
+        // Function to show/hide subcategories
+        function toggleSubCategories(category) {
+            const subCategories = document.getElementById(`${category}-sub`);
+            if (subCategories.style.display === 'block') {
+                subCategories.style.display = 'none';
+            } else {
+                subCategories.style.display = 'block';
+            }
+        }
+
+        // Function to filter products by category
+        function showCategory(category) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                if (category === 'all' || product.getAttribute('data-category') === category) {
+                    product.style.display = 'inline-block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const endDate = new Date("June 31, 2025 23:59:59").getTime(); // Set the end date of the sale
+            const now = new Date().getTime();
+            const timeLeft = endDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (timeLeft < 0) {
+                document.getElementById("summer-sales-banner").innerHTML = "<p>🔥 Summer Sale has ended! 🔥</p>";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Function to close the summer sales banner
+        function closeBanner() {
+            const banner = document.getElementById("summer-sales-banner");
+            banner.style.display = "none";
+        }
+
+        // Show all products by default
+        showCategory('all');
+
+        // Add this JavaScript after your existing product page scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if there's a category in the URL hash
+            const category = window.location.hash.slice(1); // Remove the # from the hash
+            if (category) {
+                showCategory(category);
+                // Optionally scroll to the products section
+                document.querySelector('.product-container').scrollIntoView();
+            }
+        });
+
+        function filterProductsBySearch(query) {
+            query = query.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            
+            products.forEach(product => {
+                const productName = product.querySelector('p').textContent.toLowerCase();
+                if (productName.includes(query)) {
+                    product.style.display = 'inline-block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Update your existing showCategory function
+        function showCategory(category) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                if (category === 'all' || product.getAttribute('data-category') === category) {
+                    product.style.display = 'inline-block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

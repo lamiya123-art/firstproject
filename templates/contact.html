@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Glamora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .contact-page {
+            height: 100vh;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffe6ea 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .contact-container {
+            background: linear-gradient(135deg, #fff5f7 0%, #f8e1e8 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 3vh 4vw;
+            width: 90%;
+            height: 90vh;
+            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .contact-header {
+            margin-bottom: 2vh;
+            text-align: center;
+        }
+
+        .contact-header h1 {
+            font-family: 'GFS Didot', serif;
+            font-size: 2.5vw;
+            color: #4a4a4a;
+            margin-bottom: 1vh;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-header p {
+            color: #666;
+            font-size: 1vw;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3vh;
+            flex-grow: 1;
+            margin: 2vh 0;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2vh 2vw;
+            border-radius: 15px;
+            text-align: left;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-item i {
+            font-size: 2vw;
+            color: #d4648a;
+            margin-bottom: 1vh;
+        }
+
+        .contact-item h3 {
+            font-size: 1.2vw;
+            color: #4a4a4a;
+            margin-bottom: 1vh;
+            font-family: 'GFS Didot', serif;
+        }
+
+        .contact-item p {
+            color: #666;
+            font-size: 0.9vw;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5vw;
+            margin: 2vh 0;
+        }
+
+        .social-links a {
+            width: 3vw;
+            height: 3vw;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4648a;
+            text-decoration: none;
+            font-size: 1.2vw;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links a:hover {
+            background: #d4648a;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-footer {
+            padding-top: 2vh;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact-footer p {
+            color: #666;
+            font-size: 0.9vw;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                height: 95vh;
+                padding: 4vh 4vw;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2vh;
+            }
+
+            .contact-header h1 {
+                font-size: 6vw;
+            }
+
+            .contact-header p {
+                font-size: 3vw;
+            }
+
+            .contact-item {
+                padding: 2vh 4vw;
+            }
+
+            .contact-item i {
+                font-size: 6vw;
+            }
+
+            .contact-item h3 {
+                font-size: 4vw;
+            }
+
+            .contact-item p {
+                font-size: 3vw;
+            }
+
+            .social-links a {
+                width: 10vw;
+                height: 10vw;
+                font-size: 4vw;
+            }
+
+            .contact-footer p {
+                font-size: 2.5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-page">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>Contact Us</h1>
+                <p>We're here to help and answer any questions you might have</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Visit Us</h3>
+                    <p>123 Fashion Street<br>
+                    New York, NY 10001<br>
+                    United States</p>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Opening Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 8:00 PM<br>
+                    Saturday: 10:00 AM - 6:00 PM<br>
+                    Sunday: Closed</p>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Call Us</h3>
+                    <p>Phone: +1 (234) 567-8900<br>
+                    Toll Free: 1-800-GLAMORA<br>
+                    Fax: +1 (234) 567-8901</p>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>info@glamora.com<br>
+                    support@glamora.com<br>
+                    careers@glamora.com</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+            <div class="contact-footer">
+                <p>Connect with us on social media for the latest updates and fashion inspiration</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - ShopSwift</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            background: #531c44;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .cart-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        .signup-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .signup-container h2 {
+            margin-bottom: 20px;
+            color: #531c44;
+        }
+        .signup-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background: #531c44;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .signup-container button:hover {
+            background: #3a142f;
+        }
+        .signup-container p {
+            margin-top: 15px;
+            color: #555;
+        }
+        .signup-container a {
+            color: #531c44;
+            text-decoration: none;
+        }
+        .signup-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <input type="text" id="Full Name" name="Full Name" placeholder="Full Name" required>
+            <input type="Email Address" id="Email Address" name="Email Address" placeholder="Email Address" required>
+            <input type="Password" id="Password" name="Password" placeholder="Password" required>
+            <input type="Password" id="Confirm Password" name="Confirm Password" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Log In</a></p>
+    </div>
+
+    <script>document.getElementById("signup-form").addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent the form from submitting the traditional way
+    
+        // Get form data
+        const formData = {
+            "Full Name": document.getElementById("Full Name").value,
+            "Email Address": document.getElementById("Email Address").value,
+            "Password": document.getElementById("Password").value,
+            "Confirm Password": document.getElementById("Confirm Password").value
+        };
+    
+        try {
+            // Send POST request to Flask backend
+            const response = await fetch("http://127.0.0.1:5001/fullname", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+                alert(result.message); // Success message
+            } else {
+                alert(result.error); // Error message
+            }
+        } catch (error) {
+            alert("An error occurred. Please try again.");
+            console.error(error);
+        }
+    });</script>
+ 
+</div>
+</body>
+</html>

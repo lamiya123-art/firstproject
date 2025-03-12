@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSwift Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .cart-container {
+            flex: 3;
+            padding: 20px;
+            background-color: white;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+        }
+
+        .cart-item p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .cart-item button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .cart-item button:hover {
+            background: darkred;
+        }
+
+        #total-price {
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .clear-cart-btn {
+            display: block;
+            margin: 20px auto;
+            background: rgb(83, 46, 122);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .clear-cart-btn:hover {
+            background: rgb(47, 1, 44);
+        }
+
+        .back-to-shop {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #b862a1;
+            text-decoration: none;
+        }
+
+        .back-to-shop:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar {
+            flex: 1;
+            background: linear-gradient(135deg, #d598c7, #e5a5d2);
+            padding: 20px;
+            color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .payment-options button {
+            background: white;
+            color: #784699;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .payment-options button:hover {
+            background: #f0f0f0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-content button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* UPI Details Section */
+        .upi-details {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .upi-qr {
+            width: 500px; /* Reduced size for better legibility */
+            height: 500px; /* Reduced size for better legibility */
+            margin-top: 10px;
+        }
+        .track-order-btn {
+            display: block;
+            margin: 20px auto;
+            background: #784699;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .track-order-btn:hover {
+            background: #5a3570;
+        }
+
+        /* Modal for Tracking */
+        .tracking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tracking-modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .tracking-modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .tracking-modal-content button {
+            background: #784699;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .tracking-modal-content button:hover {
+            background: #5a3570;
+        }
+
+        .tracking-result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+        }
+
+        .tracking-result p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        /* Billing Section Styles */
+.billing-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.billing-section h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.billing-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.billing-section input,
+.billing-section textarea,
+.billing-section select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.billing-section button {
+    background: #784699;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.billing-section button:hover {
+    background: #5a3570;
+}
+
+/* Confirmation Message Styles */
+.confirmation-message {
+    display: none; /* Hidden by default */
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.confirmation-message h2 {
+    color: #4CAF50;
+}
+
+.confirmation-message p {
+    color: #333;
+}
+
+.confirmation-message button {
+    background: #784699;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.confirmation-message button:hover {
+    background: #5a3570;
+}
+/* Details About Your Order Section */
+.order-details {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-details h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.track-order-btn {
+    display: block;
+    margin: 20px auto;
+    background: #784699;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.track-order-btn:hover {
+    background: #5a3570;
+}
+    </style>
+</head>
+<body>
+    <body>
+        <!-- Left Side - Cart Items and Order Details -->
+        <div class="cart-container">
+            <h1>Your Shopping Cart</h1>
+            <div id="cart-items"></div>
+            <h2 id="total-price">Total: ₹0.0</h2>
+            <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+            <a href="product_page.html" class="back-to-shop">Back to Shop</a>
+    
+            <!-- Details About Your Order Section -->
+            <div class="order-details">
+                <h2>Details About Your Order</h2>
+                <button class="track-order-btn" onclick="openTrackingModal()">Track Your Order</button>
+            </div>
+        </div>
+    
+        <!-- Right Side - Billing Details -->
+        <div class="sidebar">
+            <h2>Billing Details</h2>
+            <div class="billing-section">
+                <form id="billing-form">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+    
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="4" required></textarea>
+    
+                    <label for="payment-method">Payment Method:</label>
+                    <select id="payment-method" name="payment-method" required>
+                        <option value="credit-card">Credit Card</option>
+                        <option value="debit-card">Debit Card</option>
+                        <option value="upi">UPI</option>
+                        <option value="cod">Cash on Delivery (COD)</option>
+                    </select>
+    
+                    <button type="submit">Proceed to Payment</button>
+                </form>
+            </div>
+        </div>
+    
+        <!-- Payment Modal -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <h2>Choose Payment Method</h2>
+                <div class="dropdown">
+                    <button>UPI-based Transaction</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="showUPI('Google Pay')">Google Pay</a>
+                        <a href="#" onclick="showUPI('Paytm')">Paytm</a>
+                    </div>
+                </div>
+                <button onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    
+        <!-- UPI Payment Details -->
+        <div id="upi-details" class="upi-details">
+            <h3>Pay via UPI</h3>
+            <p id="upi-message"></p>
+            <img id="upi-qr" class="upi-qr" src="" alt="UPI QR Code">
+            <p>UPI ID: <strong id="upi-id"></strong></p>
+            <p>After payment, share the transaction ID or screenshot with us.</p>
+        </div>
+    
+        <!-- Tracking Modal -->
+        <div id="trackingModal" class="tracking-modal">
+            <div class="tracking-modal-content">
+                <h2>Track Your Order</h2>
+                <input type="text" id="tracking-id" placeholder="Enter Order ID or Tracking Number">
+                <button onclick="trackOrder()">Track</button>
+                <div class="tracking-result" id="tracking-result">
+                    <p id="tracking-status"></p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Confirmation Message (Hidden by Default) -->
+        <div id="confirmation-message" class="confirmation-message">
+            <h2>Order Confirmed!</h2>
+            <p>Thank you for your purchase. Your order will be shipped soon.</p>
+            <button onclick="clearCartAndReset()">Continue Shopping</button>
+        </div>
+        <script>
+            // Function to fetch and display cart items
+            async function fetchAndDisplayCartItems() {
+                try {
+                    const response = await fetch('http://127.0.0.1:5001/cart-items');
+                    const cartItems = await response.json();
+                    
+                    const cartItemsContainer = document.getElementById("cart-items");
+                    const totalPriceElement = document.getElementById("total-price");
+                    
+                    cartItemsContainer.innerHTML = "";
+                    let totalPrice = 0;
+
+                    cartItems.forEach(item => {
+                        const cartItemDiv = document.createElement("div");
+                        cartItemDiv.className = "cart-item";
+                        cartItemDiv.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}">
+                            <p>${item.name} - ₹${item.price} x ${item.quantity}</p>
+                            <button onclick="removeFromCart(${item.id})">Remove</button>
+                        `;
+                        cartItemsContainer.appendChild(cartItemDiv);
+                        totalPrice += item.price * item.quantity;
+                    });
+
+                    totalPriceElement.textContent = `Total: ₹${totalPrice.toFixed(2)}`;
+                } catch (error) {
+                    console.error('Error fetching cart items:', error);
+                    alert('Failed to load cart items');
+                }
+            }
+        
+            // Function to remove an item from the cart
+            async function removeFromCart(productId) {
+                try {
+                    const response = await fetch(`http://127.0.0.1:5001/cart/update`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            action: 'remove'
+                        })
+                    });
+
+                    if (response.ok) {
+                // Refresh the cart display
+                fetchAndDisplayCartItems();
+                    } else {
+                        alert('Failed to remove item from cart');
+                    }
+                } catch (error) {
+                    console.error('Error removing item:', error);
+                    alert('Failed to remove item from cart');
+                }
+            }
+        
+            // Function to clear the entire cart
+            async function clearCart() {
+                try {
+                    const response = await fetch('http://127.0.0.1:5001/cart/clear', {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                // Refresh the cart display
+                fetchAndDisplayCartItems();
+                alert("Cart cleared!");
+                    } else {
+                        alert('Failed to clear cart');
+                    }
+                } catch (error) {
+                    console.error('Error clearing cart:', error);
+                    alert('Failed to clear cart');
+                }
+            }
+        
+        // Function to handle billing form submission
+        document.getElementById('billing-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                // Get cart items first
+                const cartResponse = await fetch('http://127.0.0.1:5001/cart-items');
+                const cartItems = await cartResponse.json();
+                
+                if (!cartItems || cartItems.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+
+                // Calculate total
+                const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+                // Get form data
+                const orderData = {
+                    billing_details: {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        address: document.getElementById('address').value,
+                        payment_method: document.getElementById('payment-method').value
+                    },
+                    items: cartItems,
+                    total: total
+                };
+
+                const response = await fetch('http://127.0.0.1:5001/api/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Order placed successfully!');
+                    // Clear the form
+                    this.reset();
+                    // Clear cart display
+                    document.getElementById('cart-items').innerHTML = '';
+                    document.getElementById('total-price').textContent = 'Total: ₹0.0';
+                    
+                    // Show confirmation message
+                    document.querySelector(".billing-section").style.display = "none";
+                    document.getElementById("confirmation-message").style.display = "block";
+                    
+                    // Redirect to product page after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'product_page.html';
+                    }, 2000);
+                } else {
+                    throw new Error(result.error || 'Failed to place order');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to place order: ' + error.message);
+            }
+        });
+
+        // Function to clear cart and reset the page
+        async function clearCartAndReset() {
+            try {
+                const response = await fetch('http://127.0.0.1:5001/cart/clear', {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Clear the cart display
+                    document.getElementById("cart-items").innerHTML = "";
+                    document.getElementById("total-price").textContent = "Total: ₹0.0";
+                    
+                    // Redirect to product page
+                    window.location.href = 'product_page.html';
+                } else {
+                    throw new Error(result.error || 'Failed to clear cart');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to clear cart: ' + error.message);
+            }
+        }
+
+        // Fetch and display cart items when the page loads
+        document.addEventListener("DOMContentLoaded", fetchAndDisplayCartItems);
+        </script>
+</body>
+</html>
