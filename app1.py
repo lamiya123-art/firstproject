@@ -68,7 +68,7 @@ def verify_password(stored_password_hash, provided_password):
 # Root route
 @app.route("/")
 def home():
-    return render_template("home.html", products=products)
+    return render_template("index.html", products=products)
 
 # Separate route for handling the API request from the frontend
 @app.route("/fullname", methods=["POST"])
@@ -348,7 +348,7 @@ def get_orders():
 # HTML page routes
 @app.route("/home.html")
 def home_page():
-    return render_template("home.html", products=products)
+    return render_template("index.html", products=products)
 
 @app.route("/cart.html", methods=["GET"])
 def cart_page():
