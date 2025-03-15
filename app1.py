@@ -9,6 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 CORS(app)  # Enable CORS for all routes
 app.secret_key = 'your-secret-key-here'  # Change this to a secure random key
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/GLAMORA'
