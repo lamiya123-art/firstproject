@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamora - Your One-Stop Shop</title>
+    <link href='https://fonts.googleapis.com/css?family=GFS Didot' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'GFS Didot', serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-image: url("https://i.pinimg.com/736x/ff/a9/27/ffa9274e976ba7ffcd4fb1a5198bc83e.jpg");
+            background-size:cover;
+                }
+        header {
+            background: rgba(240, 203, 230, 0.7); /* Semi-transparent background */
+            color: rgb(45, 40, 40);
+            padding: 15px 0;
+            text-align: center;
+        
+        }
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .cart-icon {
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .cart-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        .search-filter {
+            text-align: center;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-filter input, .search-filter select, .search-filter button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-filter button {
+            background: #531c44;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .search-filter button:hover {
+            background: #3a142f;
+        }
+        .hero {
+            position: relative;
+            height: 45vh; /* Reduced height to fit in viewport */
+            overflow: hidden;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slider-container {
+            position: relative;
+            width: 70%;
+            height: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        }
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: all 1s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            width: auto;
+            padding: 1rem 2rem;
+        }
+        .text-overlay h1 {
+            font-family: 'GFS Didot', serif;
+            font-size: 2.5vw; /* Responsive font size */
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .text-overlay p {
+            font-size: 1.2vw; /* Responsive font size */
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(228, 172, 172, 0.7); /* Semi-transparent background */
+            color: white;
+            margin-top: 20px;
+        }
+        .logo img {
+            height: 200px; /* Increased size */
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            padding: 5px;
+            background: transparent; /* Remove background */
+            mix-blend-mode: multiply; /* Blend the logo with the background */
+        }
+        .heading {
+            font-size: 34px;
+            color: white;
+            margin: 0;
+        }
+        .heading-name {
+            mix-blend-mode:multiply;
+            color: white;
+            margin: 0;
+            font-family: 'GFS Didot', serif;
+            font-size: 50px;
+            background: url("https://i.pinimg.com/736x/ff/a9/27/ffa9274e976ba7ffcd4fb1a5198bc83e.jpg") center/cover;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .video-section {
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.8);
+            margin: 20px 0;
+        }
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .hero {
+                height: 40vh;
+            }
+            
+            .slider-container {
+                width: 85%;
+            }
+            
+            .text-overlay h1 {
+                font-size: 24px;
+            }
+            
+            .text-overlay p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="cart.js"></script>
+    <header>
+        <nav>
+            <div class="header-content">
+                <div class="heading">
+                    <div class="heading-name">
+                        GLAMORA
+                    </div>
+                </div>
+                <div class="logo">
+                    <a href="" target="_blank">
+                        <img src="https://i.pinimg.com/474x/55/b2/8c/55b28c6d39818f824a178266b2c62588.jpg" alt="Glamora Logo">
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product_page.html">Product Page</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+            <img src="https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="Cart">
+        </div>        
+    </header>
+
+    <section class="search-filter">
+        <input type="text" id="searchBar" placeholder="Search products...">
+        <select id="filterCategory" onchange="redirectToCategory(this.value)">
+            <option value="">Select Category</option>
+            <option value="kurtis">Kurtis</option>
+            <option value="bodycons">Bodycons</option>
+            <option value="skirts">Skirts</option>
+        </select>
+    </section>
+
+    <section class="hero">
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="https://i.pinimg.com/736x/1d/26/4c/1d264c988391a6b743cfbd299b381170.jpg" alt="Fashion 1">
+                </div>
+                <div class="slide">
+                    <img src="https://i.pinimg.com/474x/42/42/09/424209d704d28d764b4cf5073562e7ae.jpg" alt="Fashion 2">
+                </div>
+                <div class="slide">
+                    <img src="https://i.pinimg.com/474x/24/80/b6/2480b6a27cbd87341d414e54bb2edc63.jpg" alt="Fashion 3">
+                </div>
+            </div>
+            <div class="text-overlay">
+                <h1>Welcome to Glamora</h1>
+                <p>Where Elegance Meets Edge</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Glamora. All rights reserved.</p> <!-- Changed name to Glamora -->
+    </footer>
+
+    <script>
+    function redirectToCategory(category) {
+        if (category) {
+            window.location.href = `product_page.html#${category}`;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        
+        slides[0].classList.add('active');
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        setInterval(nextSlide, 5000);
+    });
+    </script>
+</body>
+</html>
