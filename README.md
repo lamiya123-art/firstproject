@@ -4,3 +4,4 @@ In today’s fast-paced world, women often struggle to find clothing that perfec
 Glamora was born to address these challenges. We aim to solve the problem of limited access to affordable, high-quality, and stylish clothing by providing a curated collection that caters to the diverse needs of modern women. Our goal is to simplify the shopping experience, offering a seamless online platform where women can effortlessly discover outfits that make them feel confident, empowered, and uniquely themselves.
 
 At Glamora, we’re not just selling clothes—we’re solving the problem of finding fashion that fits your life, your budget, and your personality.
+"# firstproject" 
