@@ -346,7 +346,7 @@ def get_orders():
         return jsonify({"error": str(e)}), 500
 
 # HTML page routes
-@app.route("/home.html")
+@app.route("/index.html")
 def home_page():
     return render_template("index.html", products=products)
 
