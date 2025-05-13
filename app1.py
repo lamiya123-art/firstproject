@@ -7,6 +7,9 @@ from bson import SON, ObjectId
 from datetime import datetime
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_pymongo import PyMongo
+from pymongo import MongoClient
+client = MongoClient("mongodb+srv://<lame>:lame@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority")
+
 
 app = Flask(__name__)
 app = Flask(__name__, template_folder="templates")
