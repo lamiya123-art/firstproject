@@ -8,9 +8,8 @@ from datetime import datetime
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
-client = MongoClient("mongodb+srv://<lame>:lame@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority")
-
-
+client = MongoClient("mongodb+srv://lame:lame@cluster0.kf45a.mongodb.net/test?retryWrites=true&w=majority
+")
 app = Flask(__name__)
 app = Flask(__name__, template_folder="templates")
 CORS(app)  # Enable CORS for all routes
